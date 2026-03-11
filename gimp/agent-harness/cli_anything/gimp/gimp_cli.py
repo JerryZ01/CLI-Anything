@@ -241,6 +241,9 @@ def layer_new(name, layer_type, width, height, fill, opacity, mode, position):
         proj, name=name, layer_type=layer_type, width=width, height=height,
         fill=fill, opacity=opacity, blend_mode=mode, position=position,
     )
+    # Auto-save if project path is set
+    if sess.project_path:
+        sess.save_session()
     output(layer, f"Added layer: {name}")
 
 
@@ -671,6 +674,9 @@ def draw_text(layer_index, text, x, y, font, size, color):
     layer["color"] = color
     layer["offset_x"] = x
     layer["offset_y"] = y
+    # Auto-save if project path is set
+    if sess.project_path:
+        sess.save_session()
     output({"layer": layer_index, "text": text}, f"Set text on layer {layer_index}")
 
 
