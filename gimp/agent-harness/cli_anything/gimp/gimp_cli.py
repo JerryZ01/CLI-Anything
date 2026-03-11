@@ -263,6 +263,9 @@ def layer_add_from_file(path, name, position, opacity, mode):
         proj, path=path, name=name, position=position,
         opacity=opacity, blend_mode=mode,
     )
+    # Auto-save if project path is set
+    if sess.project_path:
+        sess.save_session()
     output(layer, f"Added layer from: {path}")
 
 
@@ -283,6 +286,9 @@ def layer_remove(index):
     sess = get_session()
     sess.snapshot(f"Remove layer {index}")
     removed = layer_mod.remove_layer(sess.get_project(), index)
+    # Auto-save if project path is set
+    if sess.project_path:
+        sess.save_session()
     output(removed, f"Removed layer {index}: {removed.get('name', '')}")
 
 
